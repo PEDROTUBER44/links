@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR" x-data="{ darkMode: true }" :class="{ 'dark': darkMode }" class="min-h-screen flex items-center justify-center p-4" style="background-color: #08090a;">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rocket Soluções - Link na Bio</title>
+  <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+  <script src="https://unpkg.com/htmx.org@1.9.2" defer></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --backgroundColor: #08090a;
+      --primaryColor: #131313;
+      --secundaryColor: #2c2c2c;
+      --redColor: #ca000d;
+      --red-hover: #e02e2e;
+      --red-active: #a5000b;
+      --whiteColor: #ffffff;
+      --grayColor: #a1a1aa;
+      --blackColor: #000000;
+    }
+    .bg-primary {
+      background-color: var(--primaryColor);
+    }
+    .bg-secondary {
+      background-color: var(--secundaryColor);
+    }
+    .bg-red {
+      background-color: var(--redColor);
+    }
+    .bg-red:hover {
+      background-color: var(--red-hover);
+    }
+    .bg-red:active {
+      background-color: var(--red-active);
+    }
+    .text-red {
+      color: var(--redColor);
+    }
+    .text-gray {
+      color: var(--grayColor);
+    }
+  </style>
+</head>
+<body class="text-white font-sans">
+
+  <main class="max-w-sm w-full bg-primary rounded-xl shadow-lg p-8 space-y-8 text-center">
+    <header>
+      <img src="https://placehold.co/100x100/png?text=RS" alt="Logo Rocket Soluções" class="mx-auto rounded-full mb-4 border-2 border-red-600">
+      <h1 class="text-3xl font-bold text-red">Rocket Soluções</h1>
+      <p class="text-gray mt-1">Transformando suas ideias em soluções incríveis</p>
+    </header>
+
+    <nav class="space-y-4">
+      <a href="https://www.rocketsolucoes.com.br" target="_blank" class="block w-full bg-red hover:bg-red hover:bg-red transition-colors text-white font-semibold rounded-lg py-3 shadow-md">Site Oficial</a>
+      <a href="https://www.linkedin.com/company/rocket-solucoes" target="_blank" class="block w-full bg-secondary hover:bg-gray-700 text-white font-semibold rounded-lg py-3 shadow-md">LinkedIn</a>
+      <a href="https://www.instagram.com/rocketsolucoes" target="_blank" class="block w-full bg-red hover:bg-red-hover transition-colors text-white font-semibold rounded-lg py-3 shadow-md">Instagram</a>
+      <a href="mailto:contato@rocketsolucoes.com.br" class="block w-full bg-secondary hover:bg-gray-700 text-white font-semibold rounded-lg py-3 shadow-md">Contato</a>
+    </nav>
+
+    <footer class="text-sm text-gray">
+      <button @click="darkMode = !darkMode" class="underline hover:text-red transition-colors">
+        Alternar Tema Escuro
+      </button>
+      <p class="mt-2">© 2025 Rocket Soluções</p>
+    </footer>
+  </main>
+
+</body>
+</html>

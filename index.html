@@ -1,68 +1,260 @@
 <!DOCTYPE html>
-<html lang="pt-BR" x-data="{ darkMode: true }" :class="{ 'dark': darkMode }" class="min-h-screen flex items-center justify-center p-4" style="background-color: #08090a;">
+<html lang="pt-BR" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Rocket Soluções - Links oficiais e contato" />
   <title>Rocket Soluções - Link na Bio</title>
-  <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-  <script src="https://unpkg.com/htmx.org@1.9.2" defer></script>
+
+  <!-- Alpine.js -->
+  <script defer src="https://unpkg.com/alpinejs@3.13.3/dist/cdn.min.js"></script>
+
+  <!-- HTMX -->
+  <script defer src="https://unpkg.com/htmx.org@1.9.10"></script>
+
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     :root {
-      --backgroundColor: #08090a;
-      --primaryColor: #131313;
-      --secundaryColor: #2c2c2c;
-      --redColor: #ca000d;
+      --bg-dark: #08090a;
+      --primary-dark: #131313;
+      --secondary-dark: #2c2c2c;
+      --red-main: #ca000d;
       --red-hover: #e02e2e;
       --red-active: #a5000b;
-      --whiteColor: #ffffff;
-      --grayColor: #a1a1aa;
-      --blackColor: #000000;
+      --gray-text: #a1a1aa;
     }
-    .bg-primary {
-      background-color: var(--primaryColor);
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg-dark);
+      color: #ffffff;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
     }
-    .bg-secondary {
-      background-color: var(--secundaryColor);
+
+    /* Background animated shapes */
+    .bg-shapes {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
     }
-    .bg-red {
-      background-color: var(--redColor);
+
+    .shape {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.15;
+      animation: float 25s ease-in-out infinite;
     }
-    .bg-red:hover {
-      background-color: var(--red-hover);
+
+    .shape-1 {
+      width: 280px;
+      height: 280px;
+      background: radial-gradient(circle, rgba(202,0,13,0.5), rgba(255,68,68,0.2));
+      top: 5%;
+      left: -10%;
+      animation-delay: 0s;
     }
-    .bg-red:active {
-      background-color: var(--red-active);
+
+    .shape-2 {
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(255,68,68,0.4), rgba(202,0,13,0.15));
+      top: 65%;
+      right: -8%;
+      animation-delay: -10s;
     }
-    .text-red {
-      color: var(--redColor);
+
+    .shape-3 {
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(202,0,13,0.35), rgba(255,68,68,0.1));
+      top: 35%;
+      left: 75%;
+      animation-delay: -18s;
     }
-    .text-gray {
-      color: var(--grayColor);
+
+    @keyframes float {
+      0%, 100% {
+        transform: translate(0, 0) scale(1);
+      }
+      25% {
+        transform: translate(20px, -25px) scale(1.05);
+      }
+      50% {
+        transform: translate(-15px, 15px) scale(0.95);
+      }
+      75% {
+        transform: translate(25px, -10px) scale(1.02);
+      }
+    }
+
+    /* Glassmorphism card */
+    .glass-card {
+      background: rgba(19, 19, 19, 0.65);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow:
+        0 8px 32px 0 rgba(0, 0, 0, 0.37),
+        0 0 60px 0 rgba(202, 0, 13, 0.15);
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Button styles */
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 0.875rem 1.5rem;
+      font-weight: 600;
+      font-size: 0.9375rem;
+      border-radius: 0.75rem;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-red {
+      background: linear-gradient(135deg, var(--red-main) 0%, #d40010 100%);
+      color: white;
+    }
+
+    .btn-red:hover {
+      background: linear-gradient(135deg, var(--red-hover) 0%, #f03d3d 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(202, 0, 13, 0.4);
+    }
+
+    .btn-red:active {
+      transform: translateY(0);
+      background: linear-gradient(135deg, var(--red-active) 0%, #8d0009 100%);
+    }
+
+    .btn-secondary {
+      background: rgba(44, 44, 44, 0.8);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(58, 58, 58, 0.9);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .btn-secondary:active {
+      transform: translateY(0);
+      background: rgba(35, 35, 35, 0.9);
+    }
+
+    /* Profile image */
+    .profile-img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 3px solid var(--red-main);
+      box-shadow: 0 4px 20px rgba(202, 0, 13, 0.3);
+      object-fit: cover;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 640px) {
+      .shape {
+        filter: blur(40px);
+        opacity: 0.12;
+      }
+
+      .glass-card {
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+      }
+
+      .btn {
+        font-size: 0.875rem;
+        padding: 0.75rem 1.25rem;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .profile-img {
+        width: 110px;
+        height: 110px;
+      }
     }
   </style>
 </head>
-<body class="text-white font-sans">
 
-  <main class="max-w-sm w-full bg-primary rounded-xl shadow-lg p-8 space-y-8 text-center">
-    <header>
-      <img src="https://placehold.co/100x100/png?text=RS" alt="Logo Rocket Soluções" class="mx-auto rounded-full mb-4 border-2 border-red-600">
-      <h1 class="text-3xl font-bold text-red">Rocket Soluções</h1>
-      <p class="text-gray mt-1">Transformando suas ideias em soluções incríveis</p>
+<body class="flex items-center justify-center min-h-screen p-4 sm:p-6" x-data="{ theme: 'dark' }">
+
+  <!-- Animated background shapes -->
+  <div class="bg-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+  </div>
+
+  <!-- Main glassmorphism card -->
+  <main class="glass-card w-full max-w-md rounded-2xl p-6 sm:p-8 space-y-6 sm:space-y-8">
+
+    <!-- Header -->
+    <header class="text-center space-y-3">
+      <img
+        src="https://placehold.co/110x110/131313/ca000d?text=RS&font=roboto"
+        alt="Logo Rocket Soluções"
+        class="profile-img mx-auto"
+      />
+      <h1 class="text-3xl sm:text-4xl font-black tracking-tight" style="color: var(--red-main);">
+        Rocket Soluções
+      </h1>
+      <p class="text-sm sm:text-base" style="color: var(--gray-text);">
+        Transformando suas ideias em soluções incríveis
+      </p>
     </header>
 
-    <nav class="space-y-4">
-      <a href="https://www.rocketsolucoes.com.br" target="_blank" class="block w-full bg-red hover:bg-red hover:bg-red transition-colors text-white font-semibold rounded-lg py-3 shadow-md">Site Oficial</a>
-      <a href="https://www.linkedin.com/company/rocket-solucoes" target="_blank" class="block w-full bg-secondary hover:bg-gray-700 text-white font-semibold rounded-lg py-3 shadow-md">LinkedIn</a>
-      <a href="https://www.instagram.com/rocketsolucoes" target="_blank" class="block w-full bg-red hover:bg-red-hover transition-colors text-white font-semibold rounded-lg py-3 shadow-md">Instagram</a>
-      <a href="mailto:contato@rocketsolucoes.com.br" class="block w-full bg-secondary hover:bg-gray-700 text-white font-semibold rounded-lg py-3 shadow-md">Contato</a>
+    <!-- Links navigation -->
+    <nav class="space-y-3.5 sm:space-y-4">
+      <a href="https://www.rocketsolucoes.com.br" target="_blank" rel="noopener noreferrer" class="btn btn-red">
+        🚀 Site Oficial
+      </a>
+
+      <a href="https://www.linkedin.com/company/rocket-solucoes" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+        💼 LinkedIn
+      </a>
+
+      <a href="https://www.instagram.com/rocketsolucoes" target="_blank" rel="noopener noreferrer" class="btn btn-red">
+        📸 Instagram
+      </a>
+
+      <a href="mailto:contato@rocketsolucoes.com.br" class="btn btn-secondary">
+        ✉️ Contato
+      </a>
     </nav>
 
-    <footer class="text-sm text-gray">
-      <button @click="darkMode = !darkMode" class="underline hover:text-red transition-colors">
-        Alternar Tema Escuro
-      </button>
-      <p class="mt-2">© 2025 Rocket Soluções</p>
+    <!-- Footer -->
+    <footer class="text-center text-xs sm:text-sm pt-4 space-y-2" style="color: var(--gray-text);">
+      <p class="select-none">© 2025 Rocket Soluções</p>
+      <p class="text-[10px] sm:text-xs opacity-70">Todos os direitos reservados</p>
     </footer>
   </main>
 
